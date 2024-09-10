@@ -1,0 +1,16 @@
+rust_compiler/
+├── src/
+│   ├── main.c
+│   ├── lexer.c
+│   ├── parser.c
+│   ├── semantic_analysis.c
+│   ├── ir.c
+│   └── codegen.c
+├── include/
+│   ├── lexer.h
+│   ├── parser.h
+│   ├── semantic_analysis.h
+│   ├── ir.h
+│   └── codegen.h
+├── Makefile
+└── README.md
