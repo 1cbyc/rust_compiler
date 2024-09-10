@@ -1,3 +1,3 @@
 # rust_compiler
 
-by now, if you are familiar with me, you would know that anywhere they're cooking rust, i'd be there for it. 
+by now, if you are familiar with me, you would know that anywhere they're cooking rust, i'd be there for it. anyways, i am taking my hate for rust to the next level. even tho i would not have done this, but i
