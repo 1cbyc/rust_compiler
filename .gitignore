@@ -53,6 +53,7 @@ dkms.conf
 
 # personal
 hide.c
+trash/prod
 hide
 .vscode/
 
