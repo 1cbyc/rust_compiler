@@ -3,7 +3,7 @@ typedef enum {
     TOKEN_NUMBER,
     TOKEN_KEYWORD,
     TOKEN_OPERATOR,
-    // 
+    //  i am out of ideas at the moment for the token types i will need, will search online for more if i see fit
 } TokenType;
 
 typedef struct {
