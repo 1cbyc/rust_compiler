@@ -1,10 +1,8 @@
-// lexer.h
 typedef enum {
     TOKEN_IDENTIFIER,
     TOKEN_NUMBER,
     TOKEN_KEYWORD,
     TOKEN_OPERATOR,
-    // Add other token types as needed
 } TokenType;
 
 typedef struct {
