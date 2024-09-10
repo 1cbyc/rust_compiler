@@ -56,3 +56,4 @@ dkms.conf
 hide.c
 hide
 .vscode/
+project_dir
