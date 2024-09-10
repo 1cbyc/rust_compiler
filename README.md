@@ -11,4 +11,4 @@ anyways, i have decided it is time to take this hatred to the next level. i will
 
 [by the way, i understand rust very well and can build stuff with it. so, i don't remotely hate it, i actually hate it by experience just like a girl that cheated on her man.]
 
-let me take my time to note what i will do for the lexer.c and lexer.h files to help me define the lexer functions and token structures to work with for tis project and we will be good to go
+let me take my time to note what i will do for the lexer.c and lexer.h files to help me define the lexer functions and token structures to work with for tis project and we will be good to go.
