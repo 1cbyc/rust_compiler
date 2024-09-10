@@ -8,4 +8,5 @@ anyways, i have decided it is time to take this hatred to the next level. i will
 ## how i intend to go about this whole thing
 
 - let me write a lexer to convert rust to tokens first, then i will know what to do.
+
 ![by the way, i understand rust very well and can build stuff with it. so, i don't remotely hate it, i actually hate it by experience just like a girl that cheated on her man.]
