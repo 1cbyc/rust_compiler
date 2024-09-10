@@ -8,4 +8,4 @@ anyways, i have decided it is time to take this hatred to the next level. i will
 ## how i intend to go about this whole thing
 
 - let me write a lexer to convert rust to tokens first, then i will know what to do.
-!
+! by th
