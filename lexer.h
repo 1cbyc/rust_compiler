@@ -3,6 +3,7 @@ typedef enum {
     TOKEN_NUMBER,
     TOKEN_KEYWORD,
     TOKEN_OPERATOR,
+    // 
 } TokenType;
 
 typedef struct {
@@ -11,3 +12,4 @@ typedef struct {
 } Token;
 
 Token *get_next_token(const char *source_code);
+//  there you have it, my hate is guaranteed
