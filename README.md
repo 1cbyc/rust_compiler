@@ -1,120 +1,119 @@
-# Rust Compiler in C
+# rust compiler in c
 
-A Rust compiler implementation written in C, because why not take the challenge to the next level? 🦀
+A rust compiler implementation written in c, because why not take the challenge to the next level?
 
-## Project Status
+## project status
 
-### ✅ Completed
-- **Lexer**: Complete tokenization of Rust syntax
-  - All Rust keywords (`fn`, `let`, `mut`, `if`, `else`, `loop`, `while`, `for`, `in`, `match`, `return`, `break`, `continue`, `struct`, `enum`, `impl`, `trait`, `use`, `pub`, `crate`, `mod`, `as`, `where`, `type`, `const`, `static`, `unsafe`, `extern`, `move`, `ref`, `box`, `self`, `super`, `true`, `false`)
-  - All operators (`+`, `-`, `*`, `/`, `%`, `=`, `==`, `!=`, `<`, `>`, `<=`, `>=`, `+=`, `-=`, `*=`, `/=`, `%=`, `&&`, `||`, `->`, `=>`, `<<`, `>>`, `&`, `|`, `^`, `!`, `~`)
-  - All delimiters (`()`, `{}`, `[]`, `;`, `:`, `,`, `.`, `@`, `#`, `$`, `?`, `_`)
-  - Literals (integers, floats, strings, characters)
-  - Comments (single-line `//` and multi-line `/* */`)
-  - Proper line and column tracking for error reporting
+### completed
+- **lexer**: complete tokenization of rust syntax
+  - all rust keywords (`fn`, `let`, `mut`, `if`, `else`, `loop`, `while`, `for`, `in`, `match`, `return`, `break`, `continue`, `struct`, `enum`, `impl`, `trait`, `use`, `pub`, `crate`, `mod`, `as`, `where`, `type`, `const`, `static`, `unsafe`, `extern`, `move`, `ref`, `box`, `self`, `super`, `true`, `false`)
+  - all operators (`+`, `-`, `*`, `/`, `%`, `=`, `==`, `!=`, `<`, `>`, `<=`, `>=`, `+=`, `-=`, `*=`, `/=`, `%=`, `&&`, `||`, `->`, `=>`, `<<`, `>>`, `&`, `|`, `^`, `!`, `~`)
+  - all delimiters (`()`, `{}`, `[]`, `;`, `:`, `,`, `.`, `@`, `#`, `$`, `?`, `_`)
+  - literals (integers, floats, strings, characters)
+  - comments (single-line `//` and multi-line `/* */`)
+  - proper line and column tracking for error reporting
 
-### 🚧 In Progress
-- **Parser**: Converting tokens to Abstract Syntax Tree (AST)
+### in progress
+- **parser**: converting tokens to abstract syntax tree (ast)
 
-### 📋 Planned
-- **Type Checker**: Implement Rust's type system
-- **Code Generator**: Generate machine code or LLVM IR
-- **Standard Library**: Basic Rust std library functions
-- **Error Handling**: Comprehensive error messages
-- **Optimizations**: Basic compiler optimizations
+### planned
+- **type checker**: implement rust's type system
+- **code generator**: generate machine code or llvm ir
+- **standard library**: basic rust std library functions
+- **error handling**: comprehensive error messages
+- **optimizations**: basic compiler optimizations
 
-## Project Structure
+## project structure
 
 ```
 rust_compiler/
 ├── src/
-│   ├── lexer.h          # Lexer header with token definitions
-│   ├── lexer.c          # Lexer implementation
-│   └── main.c           # Main program and tests
-├── old-files/           # Original placeholder files
-├── test_lexer.py        # Python test script for lexer
-├── build.bat            # Windows build script
-├── Makefile             # Unix/Linux build system
-└── README.md            # This file
+│   ├── lexer.h          # lexer header with token definitions
+│   ├── lexer.c          # lexer implementation
+│   └── main.c           # main program and tests
+├── test_lexer.py        # python test script for lexer
+├── build.bat            # windows build script
+├── makefile             # unix/linux build system
+└── readme.md            # this file
 ```
 
-## Building and Testing
+## building and testing
 
-### Windows
+### windows
 ```bash
-# Build the project
+# build the project
 build.bat
 
-# Or manually with available compiler
-gcc -Wall -Wextra -std=c99 -g src/*.c -o rust_compiler.exe
+# or manually with available compiler
+gcc -wall -wextra -std=c99 -g src/*.c -o rust_compiler.exe
 ```
 
-### Unix/Linux
+### unix/linux
 ```bash
-# Build the project
+# build the project
 make
 
-# Run tests
+# run tests
 make test
 
-# Clean build artifacts
+# clean build artifacts
 make clean
 ```
 
-### Python Test (No C compiler needed)
+### python test (no c compiler needed)
 ```bash
 python test_lexer.py
 ```
 
-## Example Output
+## example output
 
-The lexer correctly tokenizes Rust code:
+the lexer correctly tokenizes rust code:
 
 ```rust
 fn main() {
     let x = 42;
-    println!("Hello, world!");
+    println!("hello, world!");
 }
 ```
 
-Produces tokens:
+produces tokens:
 ```
-[0] FN: 'fn' (line 1, col 1)
-[1] IDENTIFIER: 'main' (line 1, col 4)
-[2] LPAREN: '(' (line 1, col 8)
-[3] RPAREN: ')' (line 1, col 9)
-[4] LBRACE: '{' (line 1, col 11)
-[5] LET: 'let' (line 2, col 5)
-[6] IDENTIFIER: 'x' (line 2, col 9)
-[7] ASSIGN: '=' (line 2, col 11)
-[8] INTEGER_LITERAL: '42' (line 2, col 13)
-[9] SEMICOLON: ';' (line 2, col 15)
-[10] IDENTIFIER: 'println' (line 3, col 5)
-[11] BANG: '!' (line 3, col 12)
-[12] LPAREN: '(' (line 3, col 13)
-[13] STRING_LITERAL: 'Hello, world!' (line 3, col 14)
-[14] RPAREN: ')' (line 3, col 29)
-[15] SEMICOLON: ';' (line 3, col 30)
-[16] RBRACE: '}' (line 4, col 1)
-[17] EOF (line 4, col 2)
+[0] fn: 'fn' (line 1, col 1)
+[1] identifier: 'main' (line 1, col 4)
+[2] lparen: '(' (line 1, col 8)
+[3] rparen: ')' (line 1, col 9)
+[4] lbrace: '{' (line 1, col 11)
+[5] let: 'let' (line 2, col 5)
+[6] identifier: 'x' (line 2, col 9)
+[7] assign: '=' (line 2, col 11)
+[8] integer_literal: '42' (line 2, col 13)
+[9] semicolon: ';' (line 2, col 15)
+[10] identifier: 'println' (line 3, col 5)
+[11] bang: '!' (line 3, col 12)
+[12] lparen: '(' (line 3, col 13)
+[13] string_literal: 'hello, world!' (line 3, col 14)
+[14] rparen: ')' (line 3, col 29)
+[15] semicolon: ';' (line 3, col 30)
+[16] rbrace: '}' (line 4, col 1)
+[17] eof (line 4, col 2)
 ```
 
-## Next Steps
+## next steps
 
-1. **Implement Parser**: Create AST nodes and parsing logic
-2. **Add Type System**: Implement Rust's type checking
-3. **Code Generation**: Generate assembly or LLVM IR
-4. **Standard Library**: Basic Rust std functions
-5. **Error Handling**: Better error messages and recovery
+1. **implement parser**: create ast nodes and parsing logic
+2. **add type system**: implement rust's type checking
+3. **code generation**: generate assembly or llvm ir
+4. **standard library**: basic rust std functions
+5. **error handling**: better error messages and recovery
 
-## Contributing
+## contributing
 
-This is a learning project! Feel free to contribute ideas, code, or just follow along as we build a Rust compiler from scratch in C.
+this is a learning project! feel free to contribute ideas, code, or just follow along as we build a rust compiler from scratch in c.
 
-## License
+## license
 
-This project is open source. See LICENSE file for details.
+this project is open source. see license file for details.
 
 ---
 
-*"Taking my hatred for Rust to a new level" - Building a Rust compiler in C because why not?* 🦀⚡
+*taking my hatred for rust to a new level - building a rust compiler in c because why not?*
