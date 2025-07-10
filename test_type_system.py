@@ -255,7 +255,10 @@ class TypeChecker:
         
         # Variable reference
         if re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', initializer):
-            return self.ctx.env.lookup(initializer)
+            ref_type = self.ctx.env.lookup(initializer)
+            if ref_type is None:
+                self.ctx.error(f"Undefined variable referenced: {initializer}")
+            return ref_type
         
         # Binary expression (simplified)
         if any(op in initializer for op in ["+", "-", "*", "/", "==", "!=", "<", ">", "&&", "||"]):
@@ -267,6 +270,7 @@ class TypeChecker:
             else:
                 return TYPE_I32  # Default to i32 for arithmetic expressions
         
+        self.ctx.error(f"Could not infer type for initializer: {initializer}")
         return None
     
     def check_function_declaration(self, name: str, params: List[str], return_type: str, body: str) -> Type:
