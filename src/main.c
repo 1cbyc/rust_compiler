@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "types.h"
 #include "semantic.h"
+#include "codegen.h"
 
 void test_lexer(const char *source_code) {
     printf("=== testing lexer ===\n");
@@ -186,9 +187,84 @@ void test_semantic_analysis(const char *source_code) {
     printf("\n=== end of semantic analysis test ===\n\n");
 }
 
+void test_code_generation(const char *source_code) {
+    printf("=== testing code generation ===\n");
+    printf("source code:\n%s\n\n", source_code);
+    
+    Lexer *lexer = lexer_init(source_code);
+    if (!lexer) {
+        printf("failed to initialize lexer\n");
+        return;
+    }
+    
+    Parser *parser = parser_init(lexer);
+    if (!parser) {
+        printf("failed to initialize parser\n");
+        lexer_free(lexer);
+        return;
+    }
+    
+    ASTNode *ast = parse_program(parser);
+    if (!ast) {
+        printf("failed to parse program\n");
+        parser_free(parser);
+        lexer_free(lexer);
+        return;
+    }
+    
+    SemanticContext *sem_ctx = semantic_context_create();
+    if (!sem_ctx) {
+        printf("failed to create semantic context\n");
+        ast_node_free(ast);
+        parser_free(parser);
+        lexer_free(lexer);
+        return;
+    }
+    
+    IRNode *ir = NULL;
+    bool sem_success = semantic_analyze(sem_ctx, ast, &ir);
+    
+    if (!sem_success || !ir) {
+        printf("semantic analysis failed, skipping code generation\n");
+        semantic_context_free(sem_ctx);
+        ast_node_free(ast);
+        parser_free(parser);
+        lexer_free(lexer);
+        return;
+    }
+    
+    // Generate assembly
+    CodegenContext *codegen_ctx = codegen_context_create(stdout);
+    if (!codegen_ctx) {
+        printf("failed to create codegen context\n");
+        irnode_free(ir);
+        semantic_context_free(sem_ctx);
+        ast_node_free(ast);
+        parser_free(parser);
+        lexer_free(lexer);
+        return;
+    }
+    
+    bool codegen_success = codegen_generate(codegen_ctx, ir);
+    
+    if (codegen_success) {
+        printf("\ncode generation successful\n");
+    } else {
+        printf("\ncode generation failed\n");
+    }
+    
+    codegen_context_free(codegen_ctx);
+    irnode_free(ir);
+    semantic_context_free(sem_ctx);
+    ast_node_free(ast);
+    parser_free(parser);
+    lexer_free(lexer);
+    printf("\n=== end of code generation test ===\n\n");
+}
+
 int main() {
-    printf("rust compiler in c - lexer, parser, type checker, and semantic analysis test\n");
-    printf("============================================================================\n\n");
+    printf("rust compiler in c - lexer, parser, type checker, semantic analysis, and code generation test\n");
+    printf("==========================================================================================\n\n");
     
     // initialize type system
     types_init();
@@ -199,6 +275,7 @@ int main() {
     test_parser(test1);
     test_type_checker(test1);
     test_semantic_analysis(test1);
+    test_code_generation(test1);
     
     // test 2: variable declarations
     const char *test2 = "let mut sum = 0;\nlet name: String = \"rust\";";
@@ -206,6 +283,7 @@ int main() {
     test_parser(test2);
     test_type_checker(test2);
     test_semantic_analysis(test2);
+    test_code_generation(test2);
     
     // test 3: expressions
     const char *test3 = "let result = 1 + 2 * 3;";
@@ -213,6 +291,7 @@ int main() {
     test_parser(test3);
     test_type_checker(test3);
     test_semantic_analysis(test3);
+    test_code_generation(test3);
     
     // test 4: control flow
     const char *test4 = "if x > 0 {\n    return x;\n} else {\n    return 0;\n}";
@@ -220,6 +299,7 @@ int main() {
     test_parser(test4);
     test_type_checker(test4);
     test_semantic_analysis(test4);
+    test_code_generation(test4);
     
     // test 5: while loop
     const char *test5 = "while i < 10 {\n    sum += i;\n    i += 1;\n}";
@@ -227,6 +307,7 @@ int main() {
     test_parser(test5);
     test_type_checker(test5);
     test_semantic_analysis(test5);
+    test_code_generation(test5);
     
     // test 6: for loop
     const char *test6 = "for i in 0..10 {\n    println!(i);\n}";
@@ -234,6 +315,7 @@ int main() {
     test_parser(test6);
     test_type_checker(test6);
     test_semantic_analysis(test6);
+    test_code_generation(test6);
     
     // test 7: struct definition
     const char *test7 = "struct Point {\n    x: i32,\n    y: i32,\n};";
@@ -241,6 +323,7 @@ int main() {
     test_parser(test7);
     test_type_checker(test7);
     test_semantic_analysis(test7);
+    test_code_generation(test7);
     
     // test 8: enum definition
     const char *test8 = "enum Option<T> {\n    Some(T),\n    None,\n};";
@@ -248,6 +331,7 @@ int main() {
     test_parser(test8);
     test_type_checker(test8);
     test_semantic_analysis(test8);
+    test_code_generation(test8);
     
     // test 9: impl block
     const char *test9 = "impl Point {\n    fn new(x: i32, y: i32) -> Self {\n        Point { x, y }\n    }\n}";
@@ -255,6 +339,7 @@ int main() {
     test_parser(test9);
     test_type_checker(test9);
     test_semantic_analysis(test9);
+    test_code_generation(test9);
     
     // cleanup
     types_cleanup();
