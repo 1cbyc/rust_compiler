@@ -46,13 +46,20 @@
 - Python and C test harnesses for semantic analysis and IR
 - Ready for code generation
 
-## phase 5: code generation
-- [ ] choose target (x86-64 assembly or llvm ir)
-- [ ] implement basic code generation
-- [ ] function call conventions
-- [ ] stack frame management
-- [ ] register allocation (basic)
-- [ ] generate executable
+## phase 5: code generation - completed
+- [x] choose target (x86-64 assembly or llvm ir)
+- [x] implement basic code generation
+- [x] function call conventions
+- [x] stack frame management
+- [x] register allocation (basic)
+- [x] generate executable
+
+### phase 5 completion summary
+- Code generation infrastructure targeting x86-64 assembly implemented
+- IR-to-assembly translation for variables, constants, binary operations, and function calls
+- Integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation)
+- Python and C test harnesses for code generation
+- End-to-end pipeline now complete and functional
 
 ## phase 6: standard library
 - [ ] basic i/o functions
@@ -129,7 +136,7 @@
 - **phase 2**: completed (2 weeks)
 - **phase 3**: completed (3-4 weeks)
 - **phase 4**: completed (2-3 weeks)
-- **phase 5**: planned (4-6 weeks)
+- **phase 5**: completed (4-6 weeks)
 - **phase 6**: planned (2-3 weeks)
 - **phase 7**: planned (2-3 weeks)
 - **phase 8**: planned (1-2 weeks)
