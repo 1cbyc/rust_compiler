@@ -5,6 +5,7 @@
 #include "types.h"
 #include "semantic.h"
 #include "codegen.h"
+#include "stdlib.h"
 
 void test_lexer(const char *source_code) {
     printf("=== testing lexer ===\n");
@@ -262,6 +263,52 @@ void test_code_generation(const char *source_code) {
     printf("\n=== end of code generation test ===\n\n");
 }
 
+void test_stdlib(const char *source_code) {
+    printf("=== testing standard library ===\n");
+    printf("source code:\n%s\n\n", source_code);
+    
+    // Initialize standard library
+    StdLibContext *stdlib_ctx = stdlib_create();
+    if (!stdlib_ctx) {
+        printf("failed to create stdlib context\n");
+        return;
+    }
+    
+    // Initialize stdlib functions
+    stdlib_init_print_functions(stdlib_ctx);
+    stdlib_init_string_functions(stdlib_ctx);
+    stdlib_init_collection_functions(stdlib_ctx);
+    stdlib_init_error_functions(stdlib_ctx);
+    
+    printf("registered %zu standard library functions\n", stdlib_ctx->function_count);
+    
+    // Test macro system
+    MacroContext *macro_ctx = macro_context_create();
+    if (!macro_ctx) {
+        printf("failed to create macro context\n");
+        stdlib_free(stdlib_ctx);
+        return;
+    }
+    
+    // Register basic macros
+    macro_register(macro_ctx, "println!", "println!({})", "println({})");
+    macro_register(macro_ctx, "print!", "print!({})", "print({})");
+    macro_register(macro_ctx, "vec!", "vec![{}]", "Vec::new()");
+    
+    printf("registered %zu macros\n", macro_ctx->macro_count);
+    
+    // Test macro expansion
+    char *expanded = macro_expand(macro_ctx, source_code);
+    if (expanded) {
+        printf("macro expansion result:\n%s\n", expanded);
+        free(expanded);
+    }
+    
+    macro_context_free(macro_ctx);
+    stdlib_free(stdlib_ctx);
+    printf("\n=== end of standard library test ===\n\n");
+}
+
 int main() {
     printf("rust compiler in c - lexer, parser, type checker, semantic analysis, and code generation test\n");
     printf("==========================================================================================\n\n");
@@ -276,6 +323,7 @@ int main() {
     test_type_checker(test1);
     test_semantic_analysis(test1);
     test_code_generation(test1);
+    test_stdlib(test1);
     
     // test 2: variable declarations
     const char *test2 = "let mut sum = 0;\nlet name: String = \"rust\";";
