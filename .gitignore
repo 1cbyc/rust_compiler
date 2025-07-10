@@ -1,58 +1,62 @@
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
+# build artifacts
 *.exe
 *.out
 *.app
-*.i*86
-*.x86_64
-*.hex
+*.o
+*.obj
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
 
-# Debug files
+# debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
+*.map
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# compiler files
+*.d
+*.gch
+*.pch
 
-# personal
+# system files
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# ide files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# temporary files
+*.tmp
+*.temp
+*.log
+
+# personal files
 hide.c
 hide
-.vscode/
+
+# build directories
+bin/
+obj/
+build/
+dist/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
 
