@@ -139,3 +139,25 @@ this project is open source. see license file for details.
 ---
 
 *taking my hatred for rust to a new level - building a rust compiler in c because why not?*
+
+## Roadmap
+
+- [x] Phase 1: Lexer
+- [x] Phase 2: Parser
+- [x] Phase 3: Type System
+    - Type inference, type checking, struct/enum/function/generic support, error reporting
+- [ ] Phase 4: Semantic Analysis & Intermediate Representation (IR)
+    - Symbol table and scope resolution
+    - Semantic checks (e.g., variable use, shadowing, unreachable code)
+    - Build IR for code generation/optimization
+    - Prepare for borrow checking and lifetimes
+
+---
+
+**Current Phase:**
+
+### Phase 4: Semantic Analysis & IR
+- Implement symbol tables and scope management
+- Perform semantic checks (variable use, shadowing, unreachable code, etc.)
+- Build an IR (intermediate representation) for later codegen/optimization
+- Prepare for borrow checking and lifetime analysis
