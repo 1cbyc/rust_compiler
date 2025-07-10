@@ -13,8 +13,17 @@ A rust compiler implementation written in c, because why not take the challenge 
   - comments (single-line `//` and multi-line `/* */`)
   - proper line and column tracking for error reporting
 
-### in progress
-- **parser**: converting tokens to abstract syntax tree (ast)
+- **parser**: complete abstract syntax tree generation
+  - ast node structures defined for all rust constructs
+  - complete recursive descent parser implemented
+  - can parse all major rust syntax constructs:
+    - variable declarations and expressions
+    - function declarations and calls
+    - control flow (if/else, while, for, return)
+    - struct and enum definitions
+    - impl blocks
+    - operator precedence parsing
+    - comprehensive error handling
 
 ### planned
 - **type checker**: implement rust's type system
@@ -30,6 +39,8 @@ rust_compiler/
 ├── src/
 │   ├── lexer.h          # lexer header with token definitions
 │   ├── lexer.c          # lexer implementation
+│   ├── parser.h         # parser header with ast definitions
+│   ├── parser.c         # parser implementation
 │   └── main.c           # main program and tests
 ├── test_lexer.py        # python test script for lexer
 ├── build.bat            # windows build script
@@ -98,13 +109,24 @@ produces tokens:
 [17] eof (line 4, col 2)
 ```
 
+the parser creates an abstract syntax tree:
+
+```
+program (1 statements)
+  function 'main' (0 parameters)
+    block (2 statements)
+      variable_decl 'x' (immutable)
+        literal '42'
+      expression 'println' (1 arguments)
+        literal 'hello, world!'
+```
+
 ## next steps
 
-1. **implement parser**: create ast nodes and parsing logic
-2. **add type system**: implement rust's type checking
-3. **code generation**: generate assembly or llvm ir
-4. **standard library**: basic rust std functions
-5. **error handling**: better error messages and recovery
+1. **implement type system**: add rust's type checking and inference
+2. **code generation**: generate assembly or llvm ir
+3. **standard library**: basic rust std functions
+4. **error handling**: better error messages and recovery
 
 ## contributing
 
