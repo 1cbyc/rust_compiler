@@ -7,6 +7,7 @@
 #include "codegen.h"
 #include "stdlib.h"
 #include "optimizer.h"
+#include "error.h"
 
 void test_lexer(const char *source_code) {
     printf("=== testing lexer ===\n");
@@ -366,12 +367,77 @@ void test_optimization(const char *source_code) {
     printf("\n=== end of optimization test ===\n\n");
 }
 
+void test_error_handling(const char *source_code) {
+    printf("=== testing error handling ===\n");
+    printf("source code:\n%s\n\n", source_code);
+    
+    // Create error context
+    ErrorContext *error_ctx = error_context_create(100);
+    if (!error_ctx) {
+        printf("failed to create error context\n");
+        return;
+    }
+    
+    // Test different error types
+    error_report_lexical(error_ctx, "Unexpected character '#'", 5, 10, "test.rs");
+    error_report_syntax(error_ctx, "Expected ';' after expression", 12, 15, "test.rs");
+    error_report_type(error_ctx, "Type mismatch: expected i32, got String", 8, 3, "test.rs");
+    error_report_semantic(error_ctx, "Variable 'x' is not defined", 20, 7, "test.rs");
+    
+    printf("Reported %zu errors\n", error_ctx->error_count);
+    
+    // Test error recovery
+    if (error_can_recover(error_ctx)) {
+        printf("Error recovery is possible\n");
+        error_try_recover(error_ctx, ERROR_LEXICAL);
+        error_try_recover(error_ctx, ERROR_SYNTAX);
+    }
+    
+    // Test debug information
+    SourceLocation loc = source_location_create(10, 5, "main.rs");
+    DebugInfo *debug_info = debug_info_create(loc, "main");
+    if (debug_info) {
+        debug_info_add_variable(debug_info, "x", "i32");
+        debug_info_set_stack_depth(debug_info, 1);
+        printf("Debug info created for function: %s\n", debug_info->function_name);
+        debug_info_free(debug_info);
+    }
+    
+    // Test stack trace
+    StackTrace *trace = stack_trace_create();
+    if (trace) {
+        stack_trace_add_frame(trace, "main", loc);
+        stack_trace_add_frame(trace, "calculate", source_location_create(25, 12, "math.rs"));
+        printf("Stack trace created with %zu frames\n", trace->frame_count);
+        stack_trace_print(trace, stdout);
+        stack_trace_free(trace);
+    }
+    
+    // Print error summary
+    error_print_summary(error_ctx, stdout);
+    
+    // Print detailed errors
+    printf("\nDetailed errors:\n");
+    error_print_detailed(error_ctx, stdout);
+    
+    // Print error statistics
+    ErrorStats stats = {0};
+    error_get_stats(error_ctx, &stats);
+    error_print_stats(&stats, stdout);
+    
+    error_context_free(error_ctx);
+    printf("\n=== end of error handling test ===\n\n");
+}
+
 int main() {
     printf("rust compiler in c - lexer, parser, type checker, semantic analysis, and code generation test\n");
     printf("==========================================================================================\n\n");
     
     // initialize type system
     types_init();
+    
+    // Create ErrorContext* at the start of main and pass it through all phases. Print error summary and details at the end if errors occurred.
+    ErrorContext *error_ctx = error_context_create(100);
     
     // test 1: simple rust function
     const char *test1 = "fn main() {\n    let x = 42;\n    println!(\"hello, world!\");\n}";
@@ -382,6 +448,7 @@ int main() {
     test_code_generation(test1);
     test_stdlib(test1);
     test_optimization(test1);
+    test_error_handling(test1);
     
     // test 2: variable declarations
     const char *test2 = "let mut sum = 0;\nlet name: String = \"rust\";";
@@ -449,6 +516,16 @@ int main() {
     
     // cleanup
     types_cleanup();
+    
+    // Print error summary and details if any errors were reported
+    printf("\n=== Final Error Summary ===\n");
+    error_print_summary(error_ctx, stdout);
+    printf("\n=== Detailed Errors ===\n");
+    error_print_detailed(error_ctx, stdout);
+    ErrorStats final_stats = {0};
+    error_get_stats(error_ctx, &final_stats);
+    error_print_stats(&final_stats, stdout);
+    error_context_free(error_ctx);
     
     return 0;
 } 

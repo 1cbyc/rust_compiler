@@ -57,12 +57,7 @@ static void expect_token(Parser *parser, TokenType type, const char *error_msg) 
     if (check_token(parser, type)) {
         advance_token(parser);
     } else {
-        fprintf(stderr, "parse error at line %zu, column %zu: expected %s, got %s\n",
-                parser->current_token ? parser->current_token->line : 0,
-                parser->current_token ? parser->current_token->column : 0,
-                token_type_to_string(type),
-                parser->current_token ? token_type_to_string(parser->current_token->type) : "EOF");
-        if (error_msg) fprintf(stderr, "%s\n", error_msg);
+        error_report_syntax(parser->lexer, parser->current_token->line, parser->current_token->column, parser->lexer->filename, error_msg);
         parser->had_error = true;
     }
 }
@@ -255,8 +250,7 @@ ASTNode* parse_primary_expression(Parser *parser) {
         }
         
         default: {
-            fprintf(stderr, "parse error at line %zu, column %zu: unexpected token %s\n",
-                    line, column, token_type_to_string(parser->current_token->type));
+            error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "unexpected token");
             parser->had_error = true;
             advance_token(parser); // skip error token
             return NULL;
@@ -343,7 +337,7 @@ ASTNode* parse_variable_declaration(Parser *parser) {
     }
     
     if (!check_token(parser, TOKEN_IDENTIFIER)) {
-        fprintf(stderr, "parse error: expected identifier after 'let'\n");
+        error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "expected identifier after 'let'");
         parser->had_error = true;
         return NULL;
     }
@@ -389,7 +383,7 @@ ASTNode* parse_function_declaration(Parser *parser) {
     expect_token(parser, TOKEN_FN, "expected 'fn'");
     
     if (!check_token(parser, TOKEN_IDENTIFIER)) {
-        fprintf(stderr, "parse error: expected function name\n");
+        error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "expected function name");
         parser->had_error = true;
         return NULL;
     }
@@ -494,7 +488,7 @@ ASTNode* parse_if_statement(Parser *parser) {
     
     ASTNode *condition = parse_expression(parser);
     if (!condition) {
-        fprintf(stderr, "parse error: expected condition in if statement\n");
+        error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "expected condition in if statement");
         parser->had_error = true;
         return NULL;
     }
@@ -537,7 +531,7 @@ ASTNode* parse_while_statement(Parser *parser) {
     
     ASTNode *condition = parse_expression(parser);
     if (!condition) {
-        fprintf(stderr, "parse error: expected condition in while statement\n");
+        error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "expected condition in while statement");
         parser->had_error = true;
         return NULL;
     }
@@ -570,7 +564,7 @@ ASTNode* parse_for_statement(Parser *parser) {
     expect_token(parser, TOKEN_FOR, "expected 'for'");
     
     if (!check_token(parser, TOKEN_IDENTIFIER)) {
-        fprintf(stderr, "parse error: expected iterator name after 'for'\n");
+        error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "expected iterator name after 'for'");
         parser->had_error = true;
         return NULL;
     }
@@ -639,7 +633,7 @@ ASTNode* parse_struct_definition(Parser *parser) {
     expect_token(parser, TOKEN_STRUCT, "expected 'struct'");
     
     if (!check_token(parser, TOKEN_IDENTIFIER)) {
-        fprintf(stderr, "parse error: expected struct name\n");
+        error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "expected struct name");
         parser->had_error = true;
         return NULL;
     }
@@ -708,7 +702,7 @@ ASTNode* parse_impl_block(Parser *parser) {
     expect_token(parser, TOKEN_IMPL, "expected 'impl'");
     
     if (!check_token(parser, TOKEN_IDENTIFIER)) {
-        fprintf(stderr, "parse error: expected type name after 'impl'\n");
+        error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "expected type name after 'impl'");
         parser->had_error = true;
         return NULL;
     }
@@ -759,7 +753,7 @@ ASTNode* parse_enum_definition(Parser *parser) {
     expect_token(parser, TOKEN_ENUM, "expected 'enum'");
     
     if (!check_token(parser, TOKEN_IDENTIFIER)) {
-        fprintf(stderr, "parse error: expected enum name\n");
+        error_report_syntax(parser->lexer, line, column, parser->lexer->filename, "expected enum name");
         parser->had_error = true;
         return NULL;
     }

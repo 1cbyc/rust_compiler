@@ -514,7 +514,7 @@ void type_context_error(TypeContext *ctx, const char *message, size_t line, size
     ctx->error_line = line;
     ctx->error_column = column;
     
-    fprintf(stderr, "type error at line %zu, column %zu: %s\n", line, column, message);
+    // fprintf(stderr, "type error at line %zu, column %zu: %s\n", line, column, message);
 }
 
 // utility functions

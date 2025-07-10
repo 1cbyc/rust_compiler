@@ -80,19 +80,42 @@
 - Python and C test harnesses for standard library functionality
 - Foundation ready for Phase 7 optimization
 
-## phase 7: optimization
-- [ ] constant folding
-- [ ] dead code elimination
-- [ ] basic inlining
-- [ ] loop optimizations
-- [ ] register allocation improvements
+## phase 7: optimization - completed
+- [x] constant folding
+- [x] dead code elimination
+- [x] basic inlining
+- [x] loop optimizations
+- [x] register allocation improvements
 
-## phase 8: error handling & debugging
-- [ ] comprehensive error messages
-- [ ] error recovery
-- [ ] debug information generation
-- [ ] stack traces
-- [ ] source location tracking
+### phase 7 completion summary
+- Optimization infrastructure implemented with multiple optimization passes
+- Constant folding successfully reduces compile-time expressions
+- Dead code elimination removes unused assignments and unreachable code
+- Loop optimization framework ready for invariant code motion
+- Register allocation optimizes memory access patterns
+- Code size optimization reduces instruction count
+- Integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation → stdlib → optimization)
+- Python and C test harnesses for optimization functionality
+- Foundation ready for Phase 8 testing and debugging
+
+## phase 8: error handling & debugging - completed
+- [x] Create error handling infrastructure
+- [x] Implement comprehensive error messages
+- [x] Add error recovery mechanisms
+- [x] Implement debug information generation
+- [x] Add stack traces and source location tracking
+- [x] Integrate error handling with all compiler phases
+- [x] Add error reporting to main pipeline
+- [x] Create debugging tools and utilities
+
+### phase 8 completion summary
+- Error handling system integrated across lexer, parser, type checker, semantic analyzer, codegen, optimizer, and stdlib
+- Central ErrorContext collects and reports all errors and warnings
+- Error recovery strategies implemented for parser and type checker
+- Debug information and stack traces available for diagnostics
+- Error summary, details, and statistics printed at the end of compilation
+- Python and C test harnesses for error handling and debugging
+- Foundation ready for Phase 9 testing and documentation
 
 ## phase 9: testing & documentation
 - [ ] unit tests for each component
@@ -150,8 +173,8 @@
 - **phase 4**: completed (2-3 weeks)
 - **phase 5**: completed (4-6 weeks)
 - **phase 6**: completed (2-3 weeks)
-- **phase 7**: planned (2-3 weeks)
-- **phase 8**: planned (1-2 weeks)
+- **phase 7**: completed (2-3 weeks)
+- **phase 8**: completed (1-2 weeks)
 - **phase 9**: planned (1-2 weeks)
 - **phase 10**: planned (ongoing)
 

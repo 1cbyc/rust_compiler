@@ -88,13 +88,14 @@ void irnode_free(IRNode *node) {
 }
 
 // Semantic analysis context
-SemanticContext* semantic_context_create(void) {
+SemanticContext* semantic_context_create(ErrorContext *error_ctx) {
     SemanticContext *ctx = malloc(sizeof(SemanticContext));
     ctx->symbols = symbol_table_create(NULL);
     ctx->had_error = false;
     ctx->error_message = NULL;
     ctx->error_line = 0;
     ctx->error_column = 0;
+    ctx->error_ctx = error_ctx;
     return ctx;
 }
 
@@ -112,7 +113,7 @@ void semantic_context_error(SemanticContext *ctx, const char *message, size_t li
     ctx->error_message = strdup(message);
     ctx->error_line = line;
     ctx->error_column = column;
-    fprintf(stderr, "semantic error at line %zu, column %zu: %s\n", line, column, message);
+    error_report_semantic(ctx->error_ctx, message, line, column);
 }
 
 // Semantic analysis functions
