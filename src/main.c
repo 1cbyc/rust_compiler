@@ -6,6 +6,7 @@
 #include "semantic.h"
 #include "codegen.h"
 #include "stdlib.h"
+#include "optimizer.h"
 
 void test_lexer(const char *source_code) {
     printf("=== testing lexer ===\n");
@@ -309,6 +310,62 @@ void test_stdlib(const char *source_code) {
     printf("\n=== end of standard library test ===\n\n");
 }
 
+void test_optimization(const char *source_code) {
+    printf("=== testing optimization ===\n");
+    printf("source code:\n%s\n\n", source_code);
+    
+    // Create a simple IR for optimization testing
+    IRNode *const_1 = irnode_create(IR_CONSTANT, "1");
+    IRNode *const_2 = irnode_create(IR_CONSTANT, "2");
+    IRNode *add_op = irnode_create(IR_BINARY_OP, "+");
+    irnode_add_child(add_op, const_1);
+    irnode_add_child(add_op, const_2);
+    
+    IRNode *temp_assign = irnode_create(IR_ASSIGNMENT, "temp1");
+    irnode_add_child(temp_assign, add_op);
+    
+    IRNode *return_stmt = irnode_create(IR_RETURN, "result");
+    IRNode *dead_code = irnode_create(IR_ASSIGNMENT, "temp2");
+    
+    IRNode *block = irnode_create(IR_NOP, "");
+    irnode_add_child(block, temp_assign);
+    irnode_add_child(block, return_stmt);
+    irnode_add_child(block, dead_code);
+    
+    // Create optimizer context
+    OptimizerContext *opt_ctx = optimizer_create(block);
+    if (!opt_ctx) {
+        printf("failed to create optimizer context\n");
+        irnode_free(block);
+        return;
+    }
+    
+    // Add optimization passes
+    optimizer_add_pass(opt_ctx, OPT_CONSTANT_FOLDING);
+    optimizer_add_pass(opt_ctx, OPT_DEAD_CODE_ELIMINATION);
+    optimizer_add_pass(opt_ctx, OPT_CODE_SIZE_OPTIMIZATION);
+    
+    printf("Running optimization with %zu passes...\n", opt_ctx->pass_count);
+    
+    // Run optimization passes
+    bool success = optimizer_run_passes(opt_ctx);
+    
+    if (success) {
+        printf("optimization completed successfully\n");
+        printf("IR modified: %s\n", opt_ctx->modified ? "yes" : "no");
+    } else {
+        printf("optimization failed\n");
+    }
+    
+    // Print optimization statistics
+    OptimizationStats stats = {0};
+    optimizer_print_stats(opt_ctx, &stats);
+    
+    optimizer_free(opt_ctx);
+    irnode_free(block);
+    printf("\n=== end of optimization test ===\n\n");
+}
+
 int main() {
     printf("rust compiler in c - lexer, parser, type checker, semantic analysis, and code generation test\n");
     printf("==========================================================================================\n\n");
@@ -324,6 +381,7 @@ int main() {
     test_semantic_analysis(test1);
     test_code_generation(test1);
     test_stdlib(test1);
+    test_optimization(test1);
     
     // test 2: variable declarations
     const char *test2 = "let mut sum = 0;\nlet name: String = \"rust\";";

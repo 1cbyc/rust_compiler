@@ -61,7 +61,7 @@
 - Python and C test harnesses for code generation
 - End-to-end pipeline now complete and functional
 
-## phase 6: standard library - in progress
+## phase 6: standard library - completed
 - [x] Create stdlib header and implementation files
 - [x] Register basic I/O functions (print, println)
 - [x] Register string manipulation functions (len, concat)
@@ -69,19 +69,16 @@
 - [x] Register error handling types (Result, Option)
 - [x] Implement basic macro system
 - [x] Integrate stdlib and macro tests in Python and C
-- [ ] Expand stdlib with more Rust-like APIs (e.g., HashMap, formatting, iterators)
-- [ ] Integrate stdlib with type checker and semantic analysis
-- [ ] Add documentation and usage examples
+- [x] Expand stdlib with more Rust-like APIs (e.g., HashMap, formatting, iterators)
+- [x] Integrate stdlib with type checker and semantic analysis
+- [x] Add documentation and usage examples
 
-### phase 6 status
-- Core stdlib and macro system scaffolded in C and Python
-- Basic stdlib tests pass in both C and Python pipelines
-- Ready to expand stdlib features and integrate with the rest of the compiler
-
-### next steps
-- Implement more stdlib APIs (collections, formatting, error handling)
-- Deepen integration with type checker and semantic analysis
-- Add more comprehensive stdlib tests and documentation
+### phase 6 completion summary
+- Standard library infrastructure implemented with I/O, string, collection, and error handling functions
+- Macro system with basic expansion capabilities
+- Integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation → stdlib)
+- Python and C test harnesses for standard library functionality
+- Foundation ready for Phase 7 optimization
 
 ## phase 7: optimization
 - [ ] constant folding
@@ -152,7 +149,7 @@
 - **phase 3**: completed (3-4 weeks)
 - **phase 4**: completed (2-3 weeks)
 - **phase 5**: completed (4-6 weeks)
-- **phase 6**: in progress (2-3 weeks)
+- **phase 6**: completed (2-3 weeks)
 - **phase 7**: planned (2-3 weeks)
 - **phase 8**: planned (1-2 weeks)
 - **phase 9**: planned (1-2 weeks)
