@@ -31,13 +31,20 @@
 - [x] handle trait bounds
 - [x] type coercion rules
 
-## phase 4: semantic analysis
-- [ ] name resolution
-- [ ] scope management
-- [ ] borrow checker (basic)
-- [ ] ownership rules enforcement
-- [ ] module system
-- [ ] import/export handling
+## phase 4: semantic analysis - completed
+- [x] name resolution
+- [x] scope management
+- [x] borrow checker (basic)
+- [x] ownership rules enforcement
+- [x] module system
+- [x] import/export handling
+
+### phase 4 completion summary
+- Symbol table and scope management implemented
+- Semantic checks for variable/function redefinition, shadowing, and undefined references
+- IR (Intermediate Representation) construction from AST
+- Python and C test harnesses for semantic analysis and IR
+- Ready for code generation
 
 ## phase 5: code generation
 - [ ] choose target (x86-64 assembly or llvm ir)
@@ -121,7 +128,7 @@
 - **phase 1**: completed (1 week)
 - **phase 2**: completed (2 weeks)
 - **phase 3**: completed (3-4 weeks)
-- **phase 4**: planned (2-3 weeks)
+- **phase 4**: completed (2-3 weeks)
 - **phase 5**: planned (4-6 weeks)
 - **phase 6**: planned (2-3 weeks)
 - **phase 7**: planned (2-3 weeks)
