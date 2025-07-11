@@ -1,5 +1,7 @@
 # Rust Compiler User Guide
 
+(i asked ai to generate this for me too)
+
 ## Table of Contents
 
 1. [Installation](#installation)

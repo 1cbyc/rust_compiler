@@ -1,5 +1,6 @@
 # Rust Compiler API Reference
 
+(i asked ai to generate this api reference for everyone to understand tho)
 ## Overview
 
 This document provides a comprehensive API reference for the Rust compiler implementation in C. The compiler consists of several phases that transform Rust source code into executable assembly.
