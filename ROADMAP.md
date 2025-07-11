@@ -137,12 +137,31 @@
 - foundation ready for phase 10 advanced features
 
 ## phase 10: advanced features - in progress
-- [ ] closures
-- [ ] iterators
-- [ ] async/await (basic)
-- [ ] unsafe blocks
+- [x] closures
+- [x] iterators
+- [x] async/await (basic)
+- [x] unsafe blocks
 - [ ] foreign function interface
 - [ ] cargo-like package management
+
+### phase 10 status
+- closures implementation completed with environment management, parsing, semantic analysis, and code generation
+- closure capture mechanisms (by value, by reference, by move) implemented
+- closure type system with parameter and return type inference
+- closure code generation targeting x86-64 assembly
+- iterators implementation completed with iterator types, adaptors, and consumers
+- iterator trait system with next(), map(), filter(), chain() methods
+- iterator code generation for for loops, collect operations
+- async/await implementation completed with async functions, futures, and runtime
+- async function parsing and semantic analysis with future type inference
+- await expression handling with runtime task scheduling
+- async runtime with task management and state tracking
+- unsafe blocks implementation completed with unsafe operations and safety checks
+- unsafe block parsing and semantic analysis with operation detection
+- raw pointer handling with validity and alignment checks
+- unsafe code generation with runtime safety checks
+- python test suite validates unsafe blocks functionality
+- foundation ready for foreign function interface implementation
 
 ---
 
