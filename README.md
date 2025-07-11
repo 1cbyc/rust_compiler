@@ -1,6 +1,6 @@
 # rust compiler in c
 
-A rust compiler implementation written in c, because why not take the challenge to the next level?
+a rust compiler implementation written in c, because why not take the challenge to the next level?
 
 ## project status
 
@@ -25,12 +25,62 @@ A rust compiler implementation written in c, because why not take the challenge 
     - operator precedence parsing
     - comprehensive error handling
 
+- **type system**: complete type checking and inference
+  - type representation and inference implemented
+  - type checking for variables, functions, structs, enums
+  - generic type support and trait bounds
+  - comprehensive error reporting for type mismatches
+
+- **semantic analysis**: complete symbol table and scope management
+  - name resolution and scope management
+  - semantic checks for variable/function redefinition, shadowing, and undefined references
+  - ir (intermediate representation) construction from ast
+  - borrow checker (basic) and ownership rules enforcement
+
+- **code generation**: complete x86-64 assembly generation
+  - code generation infrastructure targeting x86-64 assembly
+  - ir-to-assembly translation for variables, constants, binary operations, and function calls
+  - integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation)
+
+- **standard library**: complete rust-like standard library
+  - i/o functions (print, println)
+  - string manipulation functions (len, concat)
+  - collection functions (Vec, push, get)
+  - error handling types (Result, Option)
+  - basic macro system with expansion capabilities
+
+- **optimization**: complete compiler optimizations
+  - constant folding
+  - dead code elimination
+  - basic inlining
+  - loop optimizations
+  - register allocation improvements
+
+- **error handling & debugging**: complete error management
+  - comprehensive error messages and recovery mechanisms
+  - debug information generation
+  - stack traces and source location tracking
+  - error reporting integrated across all compiler phases
+
+- **testing & documentation**: complete test suite and documentation
+  - comprehensive unit tests for each component
+  - integration tests for full pipeline
+  - performance benchmarks
+  - detailed documentation and user guide
+
+- **advanced features**: complete advanced rust features
+  - closures with environment management and capture mechanisms
+  - iterators with adaptors and consumers
+  - async/await with futures and runtime
+  - unsafe blocks with safety checks
+  - foreign function interface with calling conventions
+  - cargo-like package management with dependency resolution
+
 ### planned
-- **type checker**: implement rust's type system
-- **code generator**: generate machine code or llvm ir
-- **standard library**: basic rust std library functions
-- **error handling**: comprehensive error messages
-- **optimizations**: basic compiler optimizations
+- **advanced optimizations**: advanced compiler optimizations
+- **linker integration**: complete linking and executable generation
+- **cross-platform support**: support for multiple target platforms
+- **ide integration**: language server and ide support
 
 ## project structure
 
@@ -41,10 +91,42 @@ rust_compiler/
 │   ├── lexer.c          # lexer implementation
 │   ├── parser.h         # parser header with ast definitions
 │   ├── parser.c         # parser implementation
+│   ├── types.h          # type system header
+│   ├── types.c          # type system implementation
+│   ├── semantic.h       # semantic analysis header
+│   ├── semantic.c       # semantic analysis implementation
+│   ├── codegen.h        # code generation header
+│   ├── codegen.c        # code generation implementation
+│   ├── stdlib.h         # standard library header
+│   ├── stdlib.c         # standard library implementation
+│   ├── optimizer.h      # optimization header
+│   ├── optimizer.c      # optimization implementation
+│   ├── error.h          # error handling header
+│   ├── error.c          # error handling implementation
+│   ├── closures.h       # closures header
+│   ├── closures.c       # closures implementation
+│   ├── iterators.h      # iterators header
+│   ├── iterators.c      # iterators implementation
+│   ├── async.h          # async/await header
+│   ├── async.c          # async/await implementation
+│   ├── unsafe.h         # unsafe blocks header
+│   ├── unsafe.c         # unsafe blocks implementation
+│   ├── ffi.h            # foreign function interface header
+│   ├── ffi.c            # foreign function interface implementation
+│   ├── package.h        # package management header
+│   ├── package.c        # package management implementation
 │   └── main.c           # main program and tests
-├── test_lexer.py        # python test script for lexer
+├── include/
+│   ├── closures.h       # closures header
+│   ├── iterators.h      # iterators header
+│   ├── async.h          # async/await header
+│   ├── unsafe.h         # unsafe blocks header
+│   ├── ffi.h            # foreign function interface header
+│   └── package.h        # package management header
+├── test_*.py           # python test scripts for each component
 ├── build.bat            # windows build script
 ├── makefile             # unix/linux build system
+├── ROADMAP.md           # development roadmap
 └── readme.md            # this file
 ```
 
@@ -74,6 +156,19 @@ make clean
 ### python test (no c compiler needed)
 ```bash
 python test_lexer.py
+python test_parser.py
+python test_types.py
+python test_semantic.py
+python test_codegen.py
+python test_stdlib.py
+python test_optimizer.py
+python test_error.py
+python test_closures.py
+python test_iterators.py
+python test_async.py
+python test_unsafe.py
+python test_ffi.py
+python test_package.py
 ```
 
 ## example output
@@ -121,16 +216,66 @@ program (1 statements)
         literal 'hello, world!'
 ```
 
+## advanced features
+
+### closures
+```rust
+let add = |x, y| x + y;
+let result = add(5, 3);
+```
+
+### iterators
+```rust
+let numbers = vec![1, 2, 3, 4, 5];
+let doubled: Vec<i32> = numbers.iter().map(|x| x * 2).collect();
+```
+
+### async/await
+```rust
+async fn fetch_data() -> String {
+    // async operation
+    "data".to_string()
+}
+
+async fn main() {
+    let data = await fetch_data();
+}
+```
+
+### unsafe blocks
+```rust
+unsafe {
+    let ptr = std::ptr::null_mut();
+    // unsafe operations
+}
+```
+
+### foreign function interface
+```rust
+extern "C" {
+    fn printf(format: *const i8, ...) -> i32;
+}
+```
+
+### package management
+```bash
+cargo new my_project
+cargo add serde
+cargo build
+cargo test
+cargo run
+```
+
 ## next steps
 
-1. **implement type system**: add rust's type checking and inference
-2. **code generation**: generate assembly or llvm ir
-3. **standard library**: basic rust std functions
-4. **error handling**: better error messages and recovery
+1. **advanced optimizations**: implement advanced compiler optimizations
+2. **linker integration**: complete linking and executable generation
+3. **cross-platform support**: support for multiple target platforms
+4. **ide integration**: language server and ide support
 
 ## contributing
 
-this is a learning project! feel free to contribute ideas, code, or just follow along as we build a rust compiler from scratch in c.
+this is a learning project! feel free to contribute ideas, code, or just follow along as i build a rust compiler from scratch in c.
 
 ## license
 
@@ -139,25 +284,3 @@ this project is open source. see license file for details.
 ---
 
 *taking my hatred for rust to a new level - building a rust compiler in c because why not?*
-
-## Roadmap
-
-- [x] Phase 1: Lexer
-- [x] Phase 2: Parser
-- [x] Phase 3: Type System
-    - Type inference, type checking, struct/enum/function/generic support, error reporting
-- [ ] Phase 4: Semantic Analysis & Intermediate Representation (IR)
-    - Symbol table and scope resolution
-    - Semantic checks (e.g., variable use, shadowing, unreachable code)
-    - Build IR for code generation/optimization
-    - Prepare for borrow checking and lifetimes
-
----
-
-**Current Phase:**
-
-### Phase 4: Semantic Analysis & IR
-- Implement symbol tables and scope management
-- Perform semantic checks (variable use, shadowing, unreachable code, etc.)
-- Build an IR (intermediate representation) for later codegen/optimization
-- Prepare for borrow checking and lifetime analysis
