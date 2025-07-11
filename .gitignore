@@ -60,3 +60,6 @@ env/
 venv/
 .env
 
+
+# pro
+docs/
