@@ -182,6 +182,20 @@ def is_ffi_safe_type(type_name: str) -> bool:
     safe_types = ["i32", "i64", "f32", "f64", "i8", "u8", "i16", "u16", "u32", "u64"]
     return type_name in safe_types
 
+def is_compatible_calling_convention(rust_conv: FFICallingConvention, c_conv: FFICallingConvention) -> bool:
+    """check if calling conventions are compatible"""
+    # simplified compatibility check
+    if rust_conv == c_conv:
+        return True
+    
+    # some conventions are compatible
+    compatible_pairs = [
+        (FFICallingConvention.CDECL, FFICallingConvention.SYSTEMV),
+        (FFICallingConvention.SYSTEMV, FFICallingConvention.CDECL),
+    ]
+    
+    return (rust_conv, c_conv) in compatible_pairs or (c_conv, rust_conv) in compatible_pairs
+
 def generate_ffi_block_code(block: FFIBlock) -> str:
     """generate assembly code for ffi block"""
     print(f"generating code for ffi block: {block.library_name}")
