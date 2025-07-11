@@ -141,7 +141,7 @@
 - [x] iterators
 - [x] async/await (basic)
 - [x] unsafe blocks
-- [ ] foreign function interface
+- [x] foreign function interface
 - [ ] cargo-like package management
 
 ### phase 10 status
@@ -160,8 +160,12 @@
 - unsafe block parsing and semantic analysis with operation detection
 - raw pointer handling with validity and alignment checks
 - unsafe code generation with runtime safety checks
-- python test suite validates unsafe blocks functionality
-- foundation ready for foreign function interface implementation
+- foreign function interface implementation completed with external functions and calling conventions
+- ffi block parsing and semantic analysis with function declarations
+- calling convention support (cdecl, stdcall, fastcall, systemv, win64)
+- ffi code generation with runtime safety checks
+- python test suite validates ffi functionality
+- foundation ready for cargo-like package management implementation
 
 ---
 
