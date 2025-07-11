@@ -1,6 +1,6 @@
 # rust compiler in c
 
-a rust compiler implementation written in c, because why not take the challenge to the next level?
+a rust compiler implementation written in c, because why not?
 
 ## project status
 
@@ -82,7 +82,7 @@ a rust compiler implementation written in c, because why not take the challenge 
 - **cross-platform support**: support for multiple target platforms
 - **ide integration**: language server and ide support
 
-## project structure
+## project structure i planned is diferent from what happeend (had to use ai to get my sense in order):
 
 ```
 rust_compiler/
@@ -273,13 +273,13 @@ cargo run
 3. **cross-platform support**: support for multiple target platforms
 4. **ide integration**: language server and ide support
 
-## contributing
+## if you want to contribute
 
-this is a learning project! feel free to contribute ideas, code, or just follow along as i build a rust compiler from scratch in c.
+feel free to contribute ideas, code, or just follow along as i build a rust compiler from scratch in c.
 
 ## license
 
-this project is open source. see license file for details.
+this project is open source too. you can see license file for details.
 
 ---
 
