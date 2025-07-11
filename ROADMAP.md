@@ -40,11 +40,11 @@
 - [x] import/export handling
 
 ### phase 4 completion summary
-- Symbol table and scope management implemented
-- Semantic checks for variable/function redefinition, shadowing, and undefined references
-- IR (Intermediate Representation) construction from AST
-- Python and C test harnesses for semantic analysis and IR
-- Ready for code generation
+- symbol table and scope management implemented
+- semantic checks for variable/function redefinition, shadowing, and undefined references
+- ir (intermediate representation) construction from ast
+- python and c test harnesses for semantic analysis and ir
+- ready for code generation
 
 ## phase 5: code generation - completed
 - [x] choose target (x86-64 assembly or llvm ir)
@@ -55,11 +55,11 @@
 - [x] generate executable
 
 ### phase 5 completion summary
-- Code generation infrastructure targeting x86-64 assembly implemented
-- IR-to-assembly translation for variables, constants, binary operations, and function calls
-- Integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation)
-- Python and C test harnesses for code generation
-- End-to-end pipeline now complete and functional
+- code generation infrastructure targeting x86-64 assembly implemented
+- ir-to-assembly translation for variables, constants, binary operations, and function calls
+- integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation)
+- python and c test harnesses for code generation
+- end-to-end pipeline now complete and functional
 
 ## phase 6: standard library - completed
 - [x] Create stdlib header and implementation files
@@ -74,11 +74,11 @@
 - [x] Add documentation and usage examples
 
 ### phase 6 completion summary
-- Standard library infrastructure implemented with I/O, string, collection, and error handling functions
-- Macro system with basic expansion capabilities
-- Integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation → stdlib)
-- Python and C test harnesses for standard library functionality
-- Foundation ready for Phase 7 optimization
+- standard library infrastructure implemented with i/o, string, collection, and error handling functions
+- macro system with basic expansion capabilities
+- integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation → stdlib)
+- python and c test harnesses for standard library functionality
+- foundation ready for phase 7 optimization
 
 ## phase 7: optimization - completed
 - [x] constant folding
@@ -88,15 +88,15 @@
 - [x] register allocation improvements
 
 ### phase 7 completion summary
-- Optimization infrastructure implemented with multiple optimization passes
-- Constant folding successfully reduces compile-time expressions
-- Dead code elimination removes unused assignments and unreachable code
-- Loop optimization framework ready for invariant code motion
-- Register allocation optimizes memory access patterns
-- Code size optimization reduces instruction count
-- Integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation → stdlib → optimization)
-- Python and C test harnesses for optimization functionality
-- Foundation ready for Phase 8 testing and debugging
+- optimization infrastructure implemented with multiple optimization passes
+- constant folding successfully reduces compile-time expressions
+- dead code elimination removes unused assignments and unreachable code
+- loop optimization framework ready for invariant code motion
+- register allocation optimizes memory access patterns
+- code size optimization reduces instruction count
+- integration with main pipeline (lexer → parser → type checker → semantic analysis → code generation → stdlib → optimization)
+- python and c test harnesses for optimization functionality
+- foundation ready for phase 8 testing and debugging
 
 ## phase 8: error handling & debugging - completed
 - [x] Create error handling infrastructure
@@ -109,13 +109,13 @@
 - [x] Create debugging tools and utilities
 
 ### phase 8 completion summary
-- Error handling system integrated across lexer, parser, type checker, semantic analyzer, codegen, optimizer, and stdlib
-- Central ErrorContext collects and reports all errors and warnings
-- Error recovery strategies implemented for parser and type checker
-- Debug information and stack traces available for diagnostics
-- Error summary, details, and statistics printed at the end of compilation
-- Python and C test harnesses for error handling and debugging
-- Foundation ready for Phase 9 testing and documentation
+- error handling system integrated across lexer, parser, type checker, semantic analyzer, codegen, optimizer, and stdlib
+- central errorcontext collects and reports all errors and warnings
+- error recovery strategies implemented for parser and type checker
+- debug information and stack traces available for diagnostics
+- error summary, details, and statistics printed at the end of compilation
+- python and c test harnesses for error handling and debugging
+- foundation ready for phase 9 testing and documentation
 
 ## phase 9: testing & documentation - completed
 - [x] Create comprehensive unit tests for each component
